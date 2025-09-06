@@ -11,14 +11,43 @@
         let computerScore = 0;
 
         function getComputerChoice() {
-            return Math.floor(Math.random() * choices.length);
+            let number = Math.floor(Math.random() * choices.length);
+            return choices[number].toLowerCase;
         }
+
         function getHumanChoice() {
             let sign = window.prompt("Please choose between rock, paper or scissors.");
-            return sign.toLowerCase() ;
+            return sign.toLowerCase();
         }
-        function playRound(humanScore, computerChoice) {
 
+        function showLostMessage() {
+            return window.prompt(window.prompt("You lost!"));
+        }
+
+        function showWonMessage() {
+            window.prompt("You won!");
+        }
+
+        const humanSelection = getHumanChoice();
+        const computerSelection = getComputerChoice();
+
+        function playRound(humanChoice, computerChoice) {
+            if (humanChoice === computerChoice) {
+                windom.promt("Play again!");
+                playRound(humanSelection, computerSelection);
+            } else if (humanChoice === "rock") {
+                if (computerChoice === "paper") {
+                    showLostMessage();
+                    computerScore++;
+                } else if (computerChoice === "scissors") {
+                    showWonMessage();
+                    humanScore++;
+                }
+            } else if (humanChoice === "rock") {
+                if (computerChoice === "paper") {
+
+                }
+            }  
         }
         console.log(getHumanChoice());
     
