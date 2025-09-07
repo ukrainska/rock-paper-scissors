@@ -12,58 +12,77 @@
 
         function getComputerChoice() {
             let number = Math.floor(Math.random() * choices.length);
-            return choices[number].toLowerCase;
+            return choices[number].toLowerCase();
         }
 
         function getHumanChoice() {
-            let sign = window.prompt("Please choose between rock, paper or scissors.");
-            return sign.toLowerCase();
+            let choice = prompt("Please choose between rock, paper or scissors.");
+            return choice.toLowerCase();
         }
-
-        function showLostMessage() {
-            return window.prompt(window.prompt("You lost!"));
-        }
-
-        function showWonMessage() {
-            window.prompt("You won!");
-        }
-
-        const humanSelection = getHumanChoice();
-        const computerSelection = getComputerChoice();
 
         function playRound(humanChoice, computerChoice) {
             if (humanChoice === computerChoice) {
-                windom.promt("Play again!");
-                playRound(humanSelection, computerSelection);
+                prompt("It was tied!");
             } else if (humanChoice === "rock") {
                 if (computerChoice === "paper") {
                     showLostMessage();
-                    computerScore++;
+                    ++computerScore;
                 } else if (computerChoice === "scissors") {
                     showWonMessage();
-                    humanScore++;
+                    ++humanScore;
                 }
 
             } else if (humanChoice === "paper") {
                 if (computerChoice === "rock") {
                     showWonMessage();
-                    humanScore++;
+                    ++humanScore;
                 } else if (computerChoice === "scissors"){
                     showLostMessage();
-                    computerScore++;
+                    ++computerScore;
                 }
+
             } else if (humanChoice === "scissors") {
                 if (computerChoice === "rock") {
                     showLostMessage();
-                    computerScore++;
+                    ++computerScore;
                 } else if (computerChoice === "paper") {
                     showWonMessage();
-                    humanScore++;
+                    ++humanScore;
                 }
             }
         }
-        console.log(getHumanChoice());
-    
+
+        function showLostMessage() {
+            return alert("You lost!:(");
+        }
+
+        function showWonMessage() {
+            return alert("You won! One point!");
+        }
+
+        function showResult() {
+            if (humanScore > computerScore) {
+                return alert("You won! Congratulations!");
+            } else if (computerScore > humanScore) {
+                return alert("Unfortunately, you have lost!");
+            } else {
+                return alert("It was a tied game");
+            }
+        }
+
+        function playGame() {
+            for (let i = 0; i < 5; i++) {
+                const humanSelection = getHumanChoice();
+                const computerSelection = getComputerChoice();
+                
+                playRound(humanSelection, computerSelection);
+                console.log("Human: " + humanScore + " / " + humanSelection + " Computer: " + computerScore + " / " + computerSelection);
+            }
+        }
+
+        playGame();
+        showResult();
+
     </script>
     
 </body>
