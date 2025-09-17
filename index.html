@@ -5,6 +5,12 @@
     <title>Rock Paper Scissors</title>
 </head>
 <body>
+    <div class="buttons">
+        <button id="rock">Rock</button>
+        <button id="paper">Paper</button>
+        <button id="scissors">Scissors</button>
+    </div>
+
     <script>
         const choices = ["rock", "paper", "scissors"];
         let humanScore = 0;
@@ -70,17 +76,14 @@
             }
         }
 
-        function playGame() {
-            for (let i = 0; i < 5; i++) {
-                const humanSelection = getHumanChoice();
-                const computerSelection = getComputerChoice();
-                
-                playRound(humanSelection, computerSelection);
-                console.log("Human: " + humanScore + " / " + humanSelection + " Computer: " + computerScore + " / " + computerSelection);
-            }
+        function playRound() {
+
         }
 
-        playGame();
+        const rockChoice = document.getElementById(rock);
+        const paperChoice = document.getElementById(paper);
+        const scissorsChoice = document.getElementById(scissors);
+
         showResult();
 
     </script>
