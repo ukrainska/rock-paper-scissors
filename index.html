@@ -19,7 +19,7 @@
         let computerScore = 0;
         let humanSelection = "";
         let computerSelection = "";
-        let isGame = false;
+        let round = 1;
 
         function getComputerChoice() {
             let number = Math.floor(Math.random() * choices.length);
@@ -30,7 +30,6 @@
             if (humanSelection === computerSelection) {
                 showNeutralMessage();
             } else if (humanSelection === "rock") {
-                console.log("hey!");
                 if (computerSelection === "paper") {
                     ++computerScore;
                     updateResult();
@@ -60,40 +59,38 @@
         }
 
         function updateResult() {
-            result.textContent = `Computer: ${computerScore} Player: ${humanScore}`;
-        }
-
-        function showWonMessage() {
-            return alert("You won! One point!");
+            result.innerHTML = `Computer: ${computerScore} <br>
+            Player: ${humanScore} <br>
+            Round: ${round}` ;
+            round++;
+            console.log(round);
         }
 
         function showNeutralMessage() {
-            updateResult();
             result.textContent = "Incredible, it was tied!";
+            updateResult();
         }
 
-        function showResult() {
+        function showWinner() {
             if (humanScore > computerScore) {
-                return alert("You won! Congratulations!");
+                result.textContent = "Congratulations! You won! ";
             } else if (computerScore > humanScore) {
-                return alert("Unfortunately, you have lost!");
+                result.textContent = "Oh no! Computer won!";
             } else {
-                return alert("It was a tied game");
-            }
-        }
-
-        function playGame() { 
-            result.textContent = `Computer Score: ${computerScore}  Player Score: ${humanScore}`;
-            for (let i = 0; i < 5; i++) {
-                playRound();    
+                result.textContent = "Great! It was tied! ";
             }
         }
 
         function handleClick(event) {
             humanSelection = event.target.textContent.toLowerCase();
             computerSelection = getComputerChoice();
-            isGame = true;
-            playRound();
+
+            if (round === 5) {
+                playRound();
+                showWinner();
+            } else if (round < 6) {
+                playRound();
+            } 
             //console.log(`Human: ${humanSelection} Computer: ${computerSelection}`)
         }
 
@@ -106,9 +103,6 @@
         buttons.forEach(button => {
             button.addEventListener("click", handleClick);
         })
-        //showResult();
-
-
 
     </script>
     
