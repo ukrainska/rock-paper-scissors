@@ -11,19 +11,20 @@
         <button id="scissors">Scissors</button>
     </div>
 
+    <div id="results">
+        <h3>computer:     Player:     </h3>
+    </div>
+
     <script>
         const choices = ["rock", "paper", "scissors"];
         let humanScore = 0;
         let computerScore = 0;
+        let humanSelection = "";
+        let computerSelection = "";
 
         function getComputerChoice() {
             let number = Math.floor(Math.random() * choices.length);
             return choices[number].toLowerCase();
-        }
-
-        function getHumanChoice() {
-            let choice = prompt("Please choose between rock, paper or scissors.");
-            return choice.toLowerCase();
         }
 
         function playRound(humanChoice, computerChoice) {
@@ -76,14 +77,28 @@
             }
         }
 
-        function playRound() {
-
+        function playGame(humanChoice, computerChoice) { 
+            for (let i = 0; i < 5; i++) {
+                const computerSelection = getComputerChoice();
+                playRound(humanChoice, computerSelection);    
+            }
         }
 
-        const rockChoice = document.getElementById(rock);
-        const paperChoice = document.getElementById(paper);
-        const scissorsChoice = document.getElementById(scissors);
+        function handleClick(event) {
+            humanSelection = event.target.textContent.toLowerCase();
+            computerSelection = getComputerChoice();
+        }
 
+        // const rockChoice = document.getElementById(rock);
+        // const paperChoice = document.getElementById(paper);
+        // const scissorsChoice = document.getElementById(scissors);
+        const buttons = document.querySelectorAll(".buttons");
+
+        buttons.forEach(button => {
+            button.addEventListener("click", handleClick);
+        })
+
+        playGame();
         showResult();
 
     </script>
