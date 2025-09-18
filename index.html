@@ -11,9 +11,7 @@
         <button id="scissors">Scissors</button>
     </div>
 
-    <div id="results">
-        <h3>computer:     Player:     </h3>
-    </div>
+    <div id="results"></div>
 
     <script>
         const choices = ["rock", "paper", "scissors"];
@@ -21,50 +19,57 @@
         let computerScore = 0;
         let humanSelection = "";
         let computerSelection = "";
+        let isGame = false;
 
         function getComputerChoice() {
             let number = Math.floor(Math.random() * choices.length);
             return choices[number].toLowerCase();
         }
 
-        function playRound(humanChoice, computerChoice) {
-            if (humanChoice === computerChoice) {
-                prompt("It was tied!");
-            } else if (humanChoice === "rock") {
-                if (computerChoice === "paper") {
-                    showLostMessage();
+        function playRound() {
+            if (humanSelection === computerSelection) {
+                showNeutralMessage();
+            } else if (humanSelection === "rock") {
+                console.log("hey!");
+                if (computerSelection === "paper") {
                     ++computerScore;
-                } else if (computerChoice === "scissors") {
-                    showWonMessage();
+                    updateResult();
+                } else if (computerSelection === "scissors") {
                     ++humanScore;
+                    updateResult();
                 }
 
-            } else if (humanChoice === "paper") {
-                if (computerChoice === "rock") {
-                    showWonMessage();
+            } else if (humanSelection === "paper") {
+                if (computerSelection === "rock") {
                     ++humanScore;
-                } else if (computerChoice === "scissors"){
-                    showLostMessage();
+                    updateResult();
+                } else if (computerSelection === "scissors"){
                     ++computerScore;
+                    updateResult();
                 }
 
-            } else if (humanChoice === "scissors") {
-                if (computerChoice === "rock") {
-                    showLostMessage();
+            } else if (humanSelection === "scissors") {
+                if (computerSelection === "rock") {
                     ++computerScore;
-                } else if (computerChoice === "paper") {
-                    showWonMessage();
+                    updateResult();
+                } else if (computerSelection === "paper") {
                     ++humanScore;
+                    updateResult();
                 }
             }
         }
 
-        function showLostMessage() {
-            return alert("You lost!:(");
+        function updateResult() {
+            result.textContent = `Computer: ${computerScore} Player: ${humanScore}`;
         }
 
         function showWonMessage() {
             return alert("You won! One point!");
+        }
+
+        function showNeutralMessage() {
+            updateResult();
+            result.textContent = "Incredible, it was tied!";
         }
 
         function showResult() {
@@ -77,29 +82,33 @@
             }
         }
 
-        function playGame(humanChoice, computerChoice) { 
+        function playGame() { 
+            result.textContent = `Computer Score: ${computerScore}  Player Score: ${humanScore}`;
             for (let i = 0; i < 5; i++) {
-                const computerSelection = getComputerChoice();
-                playRound(humanChoice, computerSelection);    
+                playRound();    
             }
         }
 
         function handleClick(event) {
             humanSelection = event.target.textContent.toLowerCase();
             computerSelection = getComputerChoice();
+            isGame = true;
+            playRound();
+            //console.log(`Human: ${humanSelection} Computer: ${computerSelection}`)
         }
 
         // const rockChoice = document.getElementById(rock);
         // const paperChoice = document.getElementById(paper);
         // const scissorsChoice = document.getElementById(scissors);
         const buttons = document.querySelectorAll(".buttons");
+        const result = document.getElementById("results")
 
         buttons.forEach(button => {
             button.addEventListener("click", handleClick);
         })
+        //showResult();
 
-        playGame();
-        showResult();
+
 
     </script>
     
